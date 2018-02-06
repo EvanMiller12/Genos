@@ -1,4 +1,14 @@
 const {User} = require('../models')
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
+
+// sign user object and give back jwt token
+function jwtSignUser (user) {
+  const ONE_WEEK = 60 * 60 * 24 * 7
+  return jwt.sign(user, config.authentication.jwtSecret, {
+    expiresIn: ONE_WEEK
+  })
+}
 
 module.exports = {
   async register (req, res) {
@@ -34,7 +44,10 @@ module.exports = {
       }
 
       const userJson = user.toJSON()
-      res.send(userJson) // Send User object to client that requested this endpoint
+      res.send({
+        user: userJson, // Send User object to client that requested this endpoint
+        token: jwtSignUser(userJson) // Send jwt token
+      })
     } catch (err) {
       // email already exists
       res.status(500).send({
