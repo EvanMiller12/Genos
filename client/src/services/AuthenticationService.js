@@ -4,6 +4,9 @@ import Api from '@/services/Api' // axios object, baseURL
 export default {
   register (credentials) {
     return Api().post('register', credentials)
+  },
+  login (credentials) {
+    return Api().post('login', credentials)
   }
 }
 
