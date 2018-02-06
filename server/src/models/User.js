@@ -10,7 +10,7 @@ function hashPassword (user, options) {
 
   return bcrypt
     .genSaltAsync(SALT_FACTOR)
-    .then(salt => bcrypt.hashAsync(user.password, salt, null))
+    .then(salt => bcrypt.hashAsync(user.password, salt, null)) // take plain text pw and salt it
     .then(hash => {
       user.setDataValue('password', hash)
     })

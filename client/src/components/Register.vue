@@ -6,7 +6,7 @@
           <v-toolbar-title>Register</v-toolbar-title>
         </v-toolbar>
         <br>
-        <v-form
+        <form
           name="tab-tracker-form"
           autocomplete="off">
           <v-text-field
@@ -20,7 +20,7 @@
             v-model="password"
             autocomplete="new-password"
           ></v-text-field>
-        </v-form>
+        </form>
         <br>
         <div class="danger-alert" v-html="error" />
         <br>
@@ -50,7 +50,7 @@ export default {
   methods: {
     async register () {
       try {
-        await AuthenticationService.register({
+        const response = await AuthenticationService.register({
           email: this.email,
           password: this.password
         })

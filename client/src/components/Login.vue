@@ -6,7 +6,7 @@
           <v-toolbar-title>Login</v-toolbar-title>
         </v-toolbar>
         <br>
-        <v-form
+        <form
           name="tab-tracker-form"
           autocomplete="off">
           <v-text-field
@@ -20,7 +20,7 @@
             v-model="password"
             autocomplete="new-password"
           ></v-text-field>
-        </v-form>
+        </form>
         <br>
         <div class="danger-alert" v-html="error" />
         <br>
@@ -39,7 +39,6 @@
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
 export default {
-  name: 'Login',
   data () {
     return {
       email: '',
@@ -50,7 +49,7 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthenticationService.login({
+        const response = await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
