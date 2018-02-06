@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
 // automatically reads through models and sets up to be used with sequelize
 fs
   .readdirSync(__dirname) // read through current directory, give array of dif files
-  .filter((file) => 
+  .filter((file) =>
     file !== 'index.js'
   )
   .forEach((file) => {

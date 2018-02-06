@@ -10,9 +10,8 @@ module.exports = {
         new RegExp('^[a-zA-Z0-9]{8,32}$') // b/t 8 and 32 characters
       )
     }
-    
     // validate req.body against schema
-    const {error, value} = Joi.validate(req.body, schema)
+    const {error} = Joi.validate(req.body, schema)
 
     if (error) {
       // give key of error, email or pw in this case
@@ -23,7 +22,7 @@ module.exports = {
           })
           break
         case 'password':
-           res.status(400).send({
+          res.status(400).send({
             error: `The password provided failed to match the following rules:
               <br>
               1. It must contain ONLY the following characters: lower case, upper case, numerics.
