@@ -6,8 +6,6 @@ module.exports = (app) => {
   app.post('/register',
     AuthenticationControllerPolicy.register, // call policy as middleware controller before authenticating
     AuthenticationController.register)
-
   app.post('/login',
-    AuthenticationControllerPolicy.login,
     AuthenticationController.login)
 }
