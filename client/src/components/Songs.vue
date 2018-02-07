@@ -16,19 +16,18 @@
 
 <!-- controller -->
 <script>
+import SongsService from '@/services/SongsService'
 import Panel from '@/components/Panel'
 
 export default {
   data () {
     return {
-      songs: [
-        {
-          title: 'Float On',
-          artist: 'Modest Mouse',
-          album: 'Good News for People Who Love Bad'
-        }
-      ]
+      songs: null
     }
+  },
+  async mounted () {
+    // do a request to the backend for all the songs
+    this.songs = await SongsService.getSongs()
   },
   components: {
     Panel
