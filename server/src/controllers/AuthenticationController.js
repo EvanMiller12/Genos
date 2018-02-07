@@ -21,7 +21,7 @@ module.exports = {
       })
     } catch (err) {
       // email already exists
-      res.status(4000).send({
+      res.status(400).send({
         error: 'This email account is alread in use.'
       })
     }
@@ -36,14 +36,14 @@ module.exports = {
       })
       if (!user) {
         return res.status(403).send({
-          error: 'The login information was incorrect'
+          error: 'The email information was incorrect'
         })
       }
 
       const isPasswordValid = await user.comparePassword(password)
       if (!isPasswordValid) {
         return res.status(403).send({
-          error: 'The login information was incorrect'
+          error: 'The pw information was incorrect'
         })
       }
 
