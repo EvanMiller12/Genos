@@ -1,10 +1,7 @@
 <template>
    <v-layout column>
     <v-flex xs6 offset-xs3>
-      <v-card>
-         <v-toolbar color="cyan" dark>
-          <v-toolbar-title>Register</v-toolbar-title>
-        </v-toolbar>
+      <panel title="Register">
         <br>
         <form
           name="tab-tracker-form"
@@ -30,7 +27,7 @@
           @click="register">
           Register
         </v-btn>
-      </v-card>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
@@ -38,6 +35,7 @@
 <!-- controller -->
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel'
 
 export default {
   data () {
@@ -54,10 +52,18 @@ export default {
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({
+          name: 'songs'
+        })
       } catch (error) {
         this.error = error.response.data.error // what is return from axios
       }
     }
+  },
+  components: {
+    Panel
   }
 }
 </script>

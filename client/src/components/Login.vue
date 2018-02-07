@@ -1,14 +1,9 @@
 <template>
    <v-layout column>
     <v-flex xs6 offset-xs3>
-      <v-card>
-         <v-toolbar color="cyan" dark>
-          <v-toolbar-title>Login</v-toolbar-title>
-        </v-toolbar>
+      <panel title="Login">
         <br>
-        <form
-          name="tab-tracker-form"
-          autocomplete="off">
+        <form>
           <v-text-field
             label="Email"
             v-model="email"
@@ -18,7 +13,6 @@
             label="Password"
             type="password"
             v-model="password"
-            autocomplete="new-password"
           ></v-text-field>
         </form>
         <br>
@@ -30,7 +24,7 @@
           @click="login">
           Login
         </v-btn>
-      </v-card>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
@@ -38,6 +32,8 @@
 <!-- controller -->
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel'
+
 export default {
   data () {
     return {
@@ -53,10 +49,18 @@ export default {
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({
+          name: 'songs'
+        })
       } catch (error) {
         this.error = error.response.data.error // what is return from axios
       }
     }
+  },
+  components: {
+    Panel
   }
 }
 </script>
