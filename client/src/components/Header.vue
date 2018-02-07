@@ -7,24 +7,40 @@
         TabTracker
       </span>
     </v-toolbar-title>
-    <!-- <v-toolbar-items>
-      <v-btn>
+    <v-toolbar-items>
+       <v-btn
+        flat
+        dark
+        @click="navigateTo({name: 'Songs'})">
         Browse
       </v-btn>
-    </v-toolbar-items> -->
+    </v-toolbar-items>
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn flat dark
-          @click="navigateTo({name: 'Login'})">
-          Login
-        </v-btn>
+      <v-btn
+        v-if="$store.state.isUserLoggedIn"
+        flat
+        dark
+        @click="navigateTo({name: 'Login'})">
+        Login
+      </v-btn>
  <!-- <router-link to="register"> looks through routes in router and links to it, wraps in a tag and messes up style -->
-        <v-btn flat dark
-          @click="navigateTo({name: 'Register'})"> <!-- looks for name: Register in router -->
-          Sign Up
-        </v-btn>
+      <v-btn
+        v-if="!$store.state.isUserLoggedIn"
+        flat
+        dark
+        @click="navigateTo({name: 'Register'})"> <!-- looks for name: Register in router -->
+        Sign Up
+      </v-btn>
  <!-- </router-link> -->
+      <v-btn
+        v-if="$store.state.isUserLoggedIn"
+        flat
+        dark
+        @click="logout"> <!-- looks for name: Register in router -->
+        Log Out
+      </v-btn>
     </v-toolbar-items>
   </v-toolbar>
 </template>
@@ -35,6 +51,13 @@ export default {
   methods: {
     navigateTo (route) {
       this.$router.push(route) // access router object and go to route
+    },
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({
+        name: 'root'
+      })
     }
   }
 }
