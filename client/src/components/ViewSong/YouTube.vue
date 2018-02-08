@@ -3,7 +3,11 @@
     title="Youtube Video"
     class="ml-2">
     <!-- youtube embed -->
-    {{youtubeId}}
+    <youtube
+      :video-id="youtubeId"
+      :player-width="800"
+      :player-height="335">
+    </youtube>
   </panel>
 </template>
 
