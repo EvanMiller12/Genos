@@ -5,7 +5,7 @@ export default {
     return Api().get('songs')
   },
   // get request to passed in songId
-  show (songId) {
+  showSong (songId) {
     return Api().get(`songs/${songId}`)
   },
   // post request to songs EP and pass song data obj

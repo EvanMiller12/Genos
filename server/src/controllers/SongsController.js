@@ -15,6 +15,17 @@ module.exports = {
       })
     }
   },
+  async showSong (req, res) {
+    try {
+      // find song with passed songId from params
+      const song = await Songs.findById(req.params.songId)
+      res.send(song) // send song obj back
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to fetch the songs'
+      })
+    }
+  },
   async postSong (req, res) {
     try {
       // call sequelize obj pass it req.body and create song obj
