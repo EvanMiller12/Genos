@@ -49,7 +49,7 @@
             </v-flex>
 
             <v-flex xs-6>
-              <img :src="song.albumImageUrl" :alt="song.title" class="albume-image">
+              <img :src="song.albumImageUrl" :alt="song.title" class="album-image">
             </v-flex>
           </v-layout>
           {{song.title}}
