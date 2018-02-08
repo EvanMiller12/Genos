@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify' // styling framework for vue
 import './../node_modules/vuetify/dist/vuetify.min.css'
-import { sync } from 'vuex-router-sync'
+import { sync } from 'vuex-router-sync' // maps and sends out dispatch events when rout changes
 import store from '@/store/store'
 
 Vue.config.productionTip = false
