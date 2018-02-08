@@ -58,6 +58,11 @@
           v-model="song.tab"
         ></v-text-field>
       </panel>
+      <div
+        v-if="error"
+        class="danger-alert">
+        {{error}}
+      </div>
       <v-btn
         dark
         class="cyan"
@@ -85,12 +90,23 @@ export default {
         lyrics: null,
         tab: null
       },
+      error: null,
       // make sure value is defined, if not throw error
       required: (value) => !!value || 'Required.'
     }
   },
   methods: {
     async create () {
+      this.error = null // set error back to default state
+
+      // verify every single val of key is defined
+      const areAllFieldsFilledIn = Object
+        .keys(this.song)
+        .every(key => !!this.song[key])
+      if (!areAllFieldsFilledIn) {
+        this.error = 'Please fill in all the required fields.'
+        return
+      }
       // Call Api
       try {
         await SongsService.postSong(this.song)
