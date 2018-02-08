@@ -8,29 +8,19 @@
       <!-- end left col -->
 
       <!-- right col -->
-      <v-flex xs6>
+      <v-flex xs6 class="ml-2">
         <you-tube :youtubeId="song.youtubeId" />
       </v-flex>
       <!-- end right col -->
     </v-layout>
 
-    <v-layout>
-      <v-flex xs6 class="ml-2">
-        <panel  title="Lyrics">
-          <textarea
-            readonly
-            v-model="song.lyrics"
-          ></textarea>
-        </panel>
+    <v-layout class="mt-2">
+      <v-flex xs6>
+        <tab :song="song" /> <!-- bind prop song -->
       </v-flex>
 
       <v-flex xs6 class="ml-2">
-        <panel  title="Tabs">
-          <textarea
-            readonly
-            v-model="song.tab"
-          ></textarea>
-        </panel>
+        <lyrics :song="song" />
       </v-flex>
     </v-layout>
   </div>
@@ -41,6 +31,8 @@ import SongsService from '@/services/SongsService'
 import Panel from '@/components/Panel'
 import SongMetadata from './SongMetadata'
 import YouTube from './YouTube'
+import Lyrics from './Lyrics'
+import Tab from './Tab'
 
 export default {
   data () {
@@ -56,20 +48,12 @@ export default {
   components: {
     Panel,
     SongMetadata,
-    YouTube
+    YouTube,
+    Lyrics,
+    Tab
   }
 }
 </script>
 
 <style scoped>
-  textarea {
-    font-family: monospace;
-    width: 100%;
-    height: 600px;
-    border: none;
-    border-style: none;
-    border-color: transparent;
-    overflow: auto; /* scrollbar */
-    padding: 40px;
-  }
 </style>
