@@ -4,27 +4,27 @@
       <panel title="Song Metadata">
         <v-text-field
           label="Title"
-          v-model="title"
+          v-model="song.title"
         ></v-text-field>
         <v-text-field
           label="Artist"
-          v-model="artist"
+          v-model="song.artist"
         ></v-text-field>
         <v-text-field
           label="Genre"
-          v-model="genre"
+          v-model="song.genre"
         ></v-text-field>
         <v-text-field
           label="Album"
-          v-model="album"
+          v-model="song.album"
         ></v-text-field>
         <v-text-field
           label="Album Image Url"
-          v-model="albumImageUrl"
+          v-model="song.albumImageUrl"
         ></v-text-field>
         <v-text-field
           label="Youtube Id"
-          v-model="youtubeId"
+          v-model="song.youtubeId"
         ></v-text-field>
       </panel>
     </v-flex>
@@ -34,12 +34,12 @@
         <v-text-field
           label="Lyrics"
           multi-line
-          v-model="lyrics"
+          v-model="song.lyrics"
         ></v-text-field>
         <v-text-field
           label="Tab"
           multi-line
-          v-model="tab"
+          v-model="song.tab"
         ></v-text-field>
       </panel>
       <v-btn
@@ -54,23 +54,34 @@
 
 <script>
 import Panel from '@/components/Panel'
+import SongsService from '@/services/SongsService'
 
 export default {
   data () {
     return {
-      title: null,
-      artist: null,
-      genre: null,
-      album: null,
-      albumImageUrl: null,
-      youtubeId: null,
-      lyrics: null,
-      tab: null
+      song: {
+        title: null,
+        artist: null,
+        genre: null,
+        album: null,
+        albumImageUrl: null,
+        youtubeId: null,
+        lyrics: null,
+        tab: null
+      }
     }
   },
   methods: {
-    create () {
+    async create () {
       // Call Api
+      try {
+        await SongsService.postSong(this.song)
+        this.$router.push({
+          name: 'songs'
+        })
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
   components: {
