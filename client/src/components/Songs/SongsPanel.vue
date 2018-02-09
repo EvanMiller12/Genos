@@ -6,7 +6,9 @@
     :to="{name: 'song-create'}"> -->
     <v-btn
       slot="action"
-      @click="navigateTo({name: 'songs-create'})"
+      :to="{
+        name: 'songs-create'
+      }"
       class="cyan accent-2"
       light
       medium
