@@ -17,8 +17,10 @@
           class="cyan"
           :to="{
             name: 'song-edit',
-            params: {
-              songId: song.id
+            params () { // method to return obj and update songId dynamically
+              return {
+                songId: song.id
+              }
             }
           }">
           Edit
