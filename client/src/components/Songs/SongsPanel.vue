@@ -36,12 +36,12 @@
         <v-btn
           dark
           class="cyan"
-          @click="navigateTo({
+          :to="{
             name: 'song',
             params: {
               songId: song.id
             }
-          })">
+          }">
           View
         </v-btn>
       </v-flex>
