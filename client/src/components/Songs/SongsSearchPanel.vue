@@ -9,6 +9,8 @@
 
 <!-- controller -->
 <script>
+import _ from 'lodash'
+
 export default {
   data () {
     return {
@@ -17,7 +19,7 @@ export default {
   },
   // watch as search changes, place search val in query of url
   watch: {
-    search (value) {
+    search: _.debounce(async function (value) {
       const route = {
         name: 'songs'
       }
@@ -28,7 +30,7 @@ export default {
         }
       }
       this.$router.push(route) // go to route
-    },
+    }, 700),
     // watch search query string, update search val and query simulatenously
     '$route.query.search': {
       immediate: true, // call handler when search val is undefined
