@@ -4,10 +4,28 @@ const {Songs} = require('../models')
 module.exports = {
   async getSongs (req, res) {
     try {
-      // find all songs on songs model and return no more than  10
-      const songs = await Songs.findAll({
-        limit: 10
-      })
+      let songs = null
+      const search = req.query.search
+      // check if search is in query string
+      if (search) {
+        songs = await Songs.findAll({
+          where: {
+            // $or sequelize method checks if any of these are true
+            $or: [
+              'title', 'artist', 'genre', 'album'
+            ].map(key => ({
+              [key]: {
+                $like: `%${search}%` // $like sequelize, search $or aray and see if key exist
+              }
+            }))
+          }
+        })
+      } else {
+        // find all songs on songs model and return no more than  10
+        songs = await Songs.findAll({
+          limit: 10
+        })
+      }
       res.send(songs) // send songs obj back
     } catch (err) {
       res.status(500).send({
