@@ -1,12 +1,14 @@
 const {
   sequelize,
   Songs,
-  User
+  User,
+  Bookmark
 } = require('../src/models')
 
 const Promise = require('bluebird')
 const songs = require('./songs.json')
 const users = require('./users.json')
+const bookmarks = require('./bookmarks.json')
 
 sequelize.sync({force: true})
   .then(async function () {
@@ -20,6 +22,12 @@ sequelize.sync({force: true})
     Promise.all(
       songs.map(song => {
         Songs.create(song)
+      })
+    )
+    // needs to be after user and songs b/c we need them to be created first to associate
+    Promise.all(
+      bookmarks.map(bookmark => {
+        Bookmark.create(bookmark)
       })
     )
   })

@@ -23,6 +23,13 @@ fs
     db[model.name] = model
   })
 
+// check if model has associate method, if does call associate on model and pass db obj
+Object.keys(db).forEach(function (modelName) {
+  if ('associate' in db[modelName]) {
+    db[modelName].associate(db)
+  }
+})
+
 // give access to sequelize object
 db.sequelize = sequelize
 db.Sequelize = Sequelize
