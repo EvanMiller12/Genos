@@ -96,7 +96,7 @@ export default {
     }
   },
   async mounted () {
-     // Call Api
+    // Call Api
     try {
       const songId = this.$store.state.route.params.songId
       this.song = (await SongsService.showSong(songId)).data
@@ -119,7 +119,7 @@ export default {
 
       const songId = this.$store.state.route.params.songId
       try {
-        await SongsService.put(this.song)
+        await SongsService.putSong(this.song)
         this.$router.push({
           name: 'songs',
           params: {

@@ -42,7 +42,7 @@ export default new Router({
       name: 'song',
       component: SongContainer
     },
-     {
+    {
       path: '/songs/:songId/edit',
       name: 'song-edit',
       component: EditSong
