@@ -8,12 +8,12 @@ export default {
   showSong (songId) {
     return Api().get(`songs/${songId}`)
   },
-  // post request to songs EP and pass song data obj
-  postSong (song) {
-    return Api().post('songs', song)
-  },
   // push song payload to endpoint to update
   putSong (song) {
     return Api().put(`songs/${song.id}`, song)
+  },
+  // post request to songs EP and pass song data obj
+  postSong (song) {
+    return Api().post('songs', song)
   }
 }

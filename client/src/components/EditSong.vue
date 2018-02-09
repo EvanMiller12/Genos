@@ -121,7 +121,7 @@ export default {
       try {
         await SongsService.putSong(this.song)
         this.$router.push({
-          name: 'songs',
+          name: 'song',
           params: {
             songId: songId
           }

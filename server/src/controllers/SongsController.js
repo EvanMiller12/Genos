@@ -29,7 +29,7 @@ module.exports = {
   async putSong (req, res) {
     // update song where id on song obj matches songid
     try {
-      const song = await Songs.update(req.body, {
+      await Songs.update(req.body, {
         where: {
           id: req.params.songId
         }
