@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   port: process.env.PORT || 8081,
   db: {
@@ -7,7 +9,7 @@ module.exports = {
     options: {
       dialect: process.env.DIALECT || 'sqlite', // type of DB connecting too
       host: process.env.HOST || 'localhost',
-      storage: '../tabtracker.sqlite' // where to store sqlite file
+      storage: path.resolve(__dirname, '../../tabtracker.sqlite') // where to store sqlite file
     }
   },
   // pass jwt token secret string, that is only known by server.
