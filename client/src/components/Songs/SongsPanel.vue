@@ -55,22 +55,22 @@
 </template>
 
 <script>
-// import SongsService from '@/services/SongsService'
+import SongsService from '@/services/SongsService'
 
 export default {
   data () {
     return {
       songs: null
     }
+  },
+  watch: {
+    '$route.query.search': {
+      immediate: true,
+      async handler (value) {
+        this.songs = (await SongsService.getSongs(value)).data
+      }
+    }
   }
-  // watch: {
-  //   '$route.query.search': {
-  //     immediate: true,
-  //     async handler (value) {
-  //       this.songs = (await SongsService.index(value)).data
-  //     }
-  //   }
-  // }
 }
 </script>
 

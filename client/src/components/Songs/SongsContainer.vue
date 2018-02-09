@@ -23,11 +23,6 @@ export default {
     // do a request to the backend for all the songs
     this.songs = (await SongsService.getSongs()).data
   },
-  methods: {
-    navigateTo (route) {
-      this.$router.push(route)
-    }
-  },
   components: {
     SongsPanel,
     SongsSearchPanel
