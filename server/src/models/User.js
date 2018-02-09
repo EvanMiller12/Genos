@@ -1,5 +1,5 @@
 const Promise = require('bluebird')
-const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs')) // turns callback into
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs')) // turns callback into promise
 
 function hashPassword (user, options) {
   const SALT_FACTOR = 8 // USED BY BCRYPT
@@ -25,8 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING
   }, {
     hooks: {
-      beforeCreate: hashPassword,
-      beforeUpdate: hashPassword,
       beforeSave: hashPassword
     }
   })

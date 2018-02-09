@@ -15,7 +15,7 @@
         flat
         dark
         :to="{
-          name: 'Songs'
+          name: 'songs'
         }">
         Browse
       </v-btn>
@@ -24,11 +24,11 @@
 
     <v-toolbar-items>
       <v-btn
-        v-if="$store.state.isUserLoggedIn"
+        v-if="!$store.state.isUserLoggedIn"
         flat
         dark
         :to="{
-          name: 'Login'
+          name: 'login'
         }">
         Login
       </v-btn>
@@ -37,7 +37,7 @@
         flat
         dark
         :to="{
-          name: 'Register'
+          name: 'register'
         }"> <!-- looks for name: Register in router -->
         Sign Up
       </v-btn>

@@ -29,11 +29,13 @@ module.exports = {
   async login (req, res) {
     try {
       const {email, password} = req.body
+      console.log(req.body)
       const user = await User.findOne({ // find user where users email = email
         where: {
           email: email
         }
       })
+
       if (!user) {
         return res.status(403).send({
           error: 'The email information was incorrect'
