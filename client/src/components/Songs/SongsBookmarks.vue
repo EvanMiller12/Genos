@@ -17,8 +17,9 @@
 </template>
 
 <script>
-// import {mapState} from 'vuex'
-// import BookmarksService from '@/services/BookmarksService'
+import {mapState} from 'vuex'
+import BookmarksService from '@/services/BookmarksService'
+
 export default {
   data () {
     return {
@@ -38,29 +39,21 @@ export default {
         sortBy: 'createdAt',
         descending: true
       },
-      bookmarks: [
-        {
-          title: 'test data title',
-          artist: 'Testing'
-        },
-        {
-          title: 'test data title2',
-          artist: 'Testing2'
-        }
-      ]
+      bookmarks: []
+    }
+  },
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user'
+    ])
+  },
+  async mounted () {
+    // if user is logged in, make request to backend for all users bookmarks
+    if (this.isUserLoggedIn) {
+      this.bookmarks = (await BookmarksService.getBookmarks()).data
     }
   }
-//   computed: {
-//     ...mapState([
-//       'isUserLoggedIn',
-//       'user'
-//     ])
-//   },
-//   async mounted () {
-//     if (this.isUserLoggedIn) {
-//       this.bookmarks = (await BookmarksService.index()).data
-//     }
-//   }
 }
 </script>
 
