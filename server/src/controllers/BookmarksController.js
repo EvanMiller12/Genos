@@ -50,8 +50,11 @@ module.exports = {
           error: 'You already have this set as a bookmark'
         })
       }
-
-      const newBookmark = await Bookmark.create(req.body)
+      // create association b/t bookmark, song and user
+      const newBookmark = await Bookmark.create({
+        SongId: songId,
+        UserId: userId
+      })
       res.send(newBookmark)
     } catch (err) {
       res.status(500).send({
