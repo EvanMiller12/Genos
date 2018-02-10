@@ -15,7 +15,32 @@ module.exports = {
       res.send(bookmark) // send bookmark obj back
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to fetch the songs'
+        error: 'an error has occured trying to fetch the bookmark'
+      })
+    }
+  },
+
+  async deleteBookmark (req, res) {
+    try {
+      const {bookmarkId} = req.params
+      // find bookmark w/ bookmark id from params and delete
+      const bookmark = await Bookmark.findById(bookmarkId)
+      await bookmark.destroy()
+      res.send(bookmark) // send bookmark obj back
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to delete the bookmark'
+      })
+    }
+  },
+
+  async postBookmark (req, res) {
+    try {
+      const bookmark = await Bookmark.create(req.body)
+      res.send(bookmark)
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to add the bookmark'
       })
     }
   }
