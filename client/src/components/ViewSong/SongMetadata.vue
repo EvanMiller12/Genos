@@ -73,6 +73,11 @@ export default {
     ])
   },
   async mounted () {
+    // if user not logged in, dont try to find book mark b/c userId is undefined
+    if (!this.isUserLoggedIn) {
+      return
+    }
+
     try {
       const bookmark = (await BookmarksService.getBookmarks({
         songId: this.song.id,
