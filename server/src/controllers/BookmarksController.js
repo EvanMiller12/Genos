@@ -36,8 +36,23 @@ module.exports = {
 
   async postBookmark (req, res) {
     try {
-      const bookmark = await Bookmark.create(req.body)
-      res.send(bookmark)
+      const {songId, userId} = req.body
+      // returns bookmark w/ specific songId, if doesnt exist returns null
+      const bookmark = await Bookmark.findOne({
+        where: {
+          SongId: songId,
+          UserId: userId
+        }
+      })
+      // if bookmark exist return error else post bookmark
+      if (bookmark) {
+        return res.status(400).send({
+          error: 'You already have this set as a bookmark'
+        })
+      }
+
+      const newBookmark = await Bookmark.create(req.body)
+      res.send(newBookmark)
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to add the bookmark'
