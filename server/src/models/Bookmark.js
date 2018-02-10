@@ -5,5 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     Bookmark.belongsTo(models.User)
     Bookmark.belongsTo(models.Songs)
   }
+
   return Bookmark
 }
