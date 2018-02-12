@@ -2,12 +2,12 @@
   <v-layout>
     <v-flex xs6>
       <songs-bookmarks />
-      <recently-viewed-songs />
+      <recently-viewed-songs class="mt-2" />
     </v-flex>
 
     <v-flex xs6>
       <songs-search-panel />
-      <songs-panel mt-2 />
+      <songs-panel class="mt-2" />
     </v-flex>
   </v-layout>
 </template>
