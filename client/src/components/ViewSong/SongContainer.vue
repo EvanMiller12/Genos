@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import SongsService from '@/services/SongsService'
 import SongMetadata from './SongMetadata'
 import YouTube from './YouTube'
@@ -39,9 +40,14 @@ export default {
       song: {}
     }
   },
+  computed: {
+    ...mapState([
+      'route'
+    ])
+  },
   async mounted () {
     // router is synced to store in main.js, so updates songId by route from song navTo method
-    const songId = this.$store.state.route.params.songId
+    const songId = this.route.params.songId
     this.song = (await SongsService.showSong(songId)).data
   },
   components: {
