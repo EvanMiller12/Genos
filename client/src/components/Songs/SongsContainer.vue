@@ -2,6 +2,7 @@
   <v-layout>
     <v-flex xs6>
       <songs-bookmarks />
+      <recently-viewed-songs />
     </v-flex>
 
     <v-flex xs6>
@@ -15,6 +16,7 @@
 <script>
 import SongsPanel from './SongsPanel'
 import SongsBookmarks from './SongsBookmarks'
+import RecentlyViewedSongs from './RecentlyViewedSongs'
 import SongsSearchPanel from './SongsSearchPanel'
 import SongsService from '@/services/SongsService'
 
@@ -31,7 +33,8 @@ export default {
   components: {
     SongsPanel,
     SongsSearchPanel,
-    SongsBookmarks
+    SongsBookmarks,
+    RecentlyViewedSongs
   }
 }
 </script>
