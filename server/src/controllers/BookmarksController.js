@@ -1,17 +1,36 @@
-const {Bookmark} = require('../models')
-// const jwt = require('jsonwebtoken')
-// const config = require('../config/config')
+const {
+  Bookmark,
+  Songs
+} = require('../models')
+
+const _ = require('lodash')
+
 module.exports = {
   async getBookmarks (req, res) {
     try {
-      const {songId, userId} = req.query
+      const userId = req.user.id
+      const {songId} = req.query
+      const where = {
+        UserId: userId
+      }
+      if (songId) {
+        where.SongId = songId
+      }
       // returns bookmark w/ specific songId, if doesnt exist returns null
       const bookmarks = await Bookmark.findAll({
-        where: {
-          SongId: songId,
-          UserId: userId
-        }
+        where: where,
+        include: [
+          {
+            model: Songs
+          }
+        ]
       })
+        .map(bookmark => bookmark.toJSON())
+        .map(bookmark => _.extend(
+          {},
+          bookmark.Songs,
+          bookmark
+        ))
       res.send(bookmarks) // send bookmark obj back
     } catch (err) {
       res.status(500).send({
@@ -20,23 +39,10 @@ module.exports = {
     }
   },
 
-  async deleteBookmark (req, res) {
-    try {
-      const {bookmarkId} = req.params
-      // find bookmark w/ bookmark id from params and delete
-      const bookmark = await Bookmark.findById(bookmarkId)
-      await bookmark.destroy()
-      res.send(bookmark) // send bookmark obj back
-    } catch (err) {
-      res.status(500).send({
-        error: 'an error has occured trying to delete the bookmark'
-      })
-    }
-  },
-
   async postBookmark (req, res) {
     try {
-      const {songId, userId} = req.body
+      const userId = req.user.id
+      const {songId} = req.body
       // returns bookmark w/ specific songId, if doesnt exist returns null
       const bookmark = await Bookmark.findOne({
         where: {
@@ -59,6 +65,30 @@ module.exports = {
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to add the bookmark'
+      })
+    }
+  },
+
+  async deleteBookmark (req, res) {
+    try {
+      const userId = req.user.id
+      const {bookmarkId} = req.params
+      const bookmark = await Bookmark.findOne({
+        where: {
+          id: bookmarkId,
+          UserId: userId
+        }
+      })
+      if (!bookmark) {
+        return res.status(403).send({
+          error: 'you do not have access to this bookmark'
+        })
+      }
+      await bookmark.destroy()
+      res.send(bookmark) // send bookmark obj back
+    } catch (err) {
+      res.status(500).send({
+        error: 'an error has occured trying to delete the bookmark'
       })
     }
   }
