@@ -4,7 +4,7 @@
       :headers="headers"
       :pagination.sync="pagination"
       :items="bookmarks">
-      <template slot="items" slot-scope="props">
+      <template slot="items" scope="props">
         <td class="text-xs-right">
           {{props.item.title}}
         </td>
@@ -51,7 +51,9 @@ export default {
   async mounted () {
     // if user is logged in, make request to backend for all users bookmarks
     if (this.isUserLoggedIn) {
-      this.bookmarks = (await BookmarksService.getBookmarks()).data
+      this.bookmarks = (await BookmarksService.getBookmarks({
+        userId: this.user.id
+      })).data
     }
   }
 }

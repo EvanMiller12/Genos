@@ -3,7 +3,7 @@
     <v-data-table
       :headers="headers"
       :pagination.sync="pagination"
-      :items="songs">
+      :items="histories">
       <template slot="items" slot-scope="props">
         <td class="text-xs-right">
           {{props.item.title}}
@@ -39,7 +39,7 @@ export default {
         sortBy: 'createdAt',
         descending: true
       },
-      songs: []
+      histories: []
     }
   },
   computed: {
@@ -51,7 +51,7 @@ export default {
   async mounted () {
     // if user is logged in, make request to backend for all users bookmarks
     if (this.isUserLoggedIn) {
-      this.songs = (await SongHistoryService.getSongs({
+      this.histories = (await SongHistoryService.getSongs({
         userId: this.user.id
       })).data
     }

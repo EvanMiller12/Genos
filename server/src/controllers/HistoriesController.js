@@ -23,10 +23,11 @@ module.exports = {
         .map(history => history.toJSON())
         .map(history => _.extend(
           {},
-          history.Songs,
+          history.Song,
           history
         ))
-      res.send(histories) // send histories obj back
+      // send histories obj back w/ key SongId so dont get duplicates
+      res.send(_.uniqBy(histories, history => history.SongId))
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to fetch the history'
@@ -35,8 +36,7 @@ module.exports = {
   },
   async postHistory (req, res) {
     try {
-      const userId = req.user.id
-      const {songId} = req.body
+      const {songId, userId} = req.body
       // create association b/t history, songs and user models
       const history = await History.create({
         SongId: songId,

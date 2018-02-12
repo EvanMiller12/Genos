@@ -8,8 +8,8 @@ const _ = require('lodash')
 module.exports = {
   async getBookmarks (req, res) {
     try {
-      const userId = req.user.id
-      const {songId} = req.query
+      // const userId = req.user.id
+      const {songId, userId} = req.query
       const where = {
         UserId: userId
       }
@@ -28,7 +28,7 @@ module.exports = {
         .map(bookmark => bookmark.toJSON())
         .map(bookmark => _.extend(
           {},
-          bookmark.Songs,
+          bookmark.Song,
           bookmark
         ))
       res.send(bookmarks) // send bookmark obj back
@@ -41,8 +41,8 @@ module.exports = {
 
   async postBookmark (req, res) {
     try {
-      const userId = req.user.id
-      const {songId} = req.body
+      // const userId = req.user.id
+      const {songId, userId} = req.body
       // returns bookmark w/ specific songId, if doesnt exist returns null
       const bookmark = await Bookmark.findOne({
         where: {
@@ -71,8 +71,8 @@ module.exports = {
 
   async deleteBookmark (req, res) {
     try {
-      const userId = req.user.id
-      const {bookmarkId} = req.params
+      // const userId = req.user.id
+      const {bookmarkId, userId} = req.params
       const bookmark = await Bookmark.findOne({
         where: {
           id: bookmarkId,
