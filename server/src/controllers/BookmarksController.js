@@ -8,8 +8,8 @@ const _ = require('lodash')
 module.exports = {
   async getBookmarks (req, res) {
     try {
-      // const userId = req.user.id
-      const {songId, userId} = req.query
+      const userId = req.user.id // comes from jwt token thats proven to be valid
+      const {songId} = req.query
       const where = {
         UserId: userId
       }
