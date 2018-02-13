@@ -41,8 +41,8 @@ module.exports = {
 
   async postBookmark (req, res) {
     try {
-      // const userId = req.user.id
-      const {songId, userId} = req.body
+      const userId = req.user.id
+      const {songId} = req.body
       // returns bookmark w/ specific songId, if doesnt exist returns null
       const bookmark = await Bookmark.findOne({
         where: {
@@ -71,8 +71,9 @@ module.exports = {
 
   async deleteBookmark (req, res) {
     try {
-      // const userId = req.user.id
-      const {bookmarkId, userId} = req.params
+      const userId = req.user.id
+      const {bookmarkId} = req.params
+      // only returns bookmark user has access too
       const bookmark = await Bookmark.findOne({
         where: {
           id: bookmarkId,
