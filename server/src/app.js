@@ -10,6 +10,9 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
+// twitter, fb authentication module
+require('./passport')
+
 // attach all endpoints of app
 require('./routes')(app)
 
