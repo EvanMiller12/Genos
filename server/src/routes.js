@@ -32,7 +32,9 @@ module.exports = (app) => {
     BookmarksController.deleteBookmark)
 
   app.get('/histories',
+    isAuthenticated,
     HistoriesController.getHistory)
   app.post('/histories',
+    isAuthenticated,
     HistoriesController.postHistory)
 }

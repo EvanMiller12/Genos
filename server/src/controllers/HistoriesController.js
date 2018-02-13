@@ -8,7 +8,7 @@ const _ = require('lodash')
 module.exports = {
   async getHistory (req, res) {
     try {
-      const {userId} = req.query
+      const userId = req.user.id // from token
       // returns history w/ specific songId, if doesnt exist returns null
       const histories = await History.findAll({
         where: {
@@ -36,7 +36,8 @@ module.exports = {
   },
   async postHistory (req, res) {
     try {
-      const {songId, userId} = req.body
+      const userId = req.user.id
+      const {songId} = req.body
       // create association b/t history, songs and user models
       const history = await History.create({
         SongId: songId,

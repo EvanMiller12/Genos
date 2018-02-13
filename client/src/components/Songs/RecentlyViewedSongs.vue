@@ -51,9 +51,7 @@ export default {
   async mounted () {
     // if user is logged in, make request to backend for all users bookmarks
     if (this.isUserLoggedIn) {
-      this.histories = (await SongHistoryService.getSongs({
-        userId: this.user.id
-      })).data
+      this.histories = (await SongHistoryService.getSongs()).data
     }
   }
 }
