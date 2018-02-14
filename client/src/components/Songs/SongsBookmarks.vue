@@ -6,7 +6,17 @@
       :items="bookmarks">
       <template slot="items" slot-scope="props">
         <td class="text-xs-right">
-          {{props.item.title}}
+          <v-btn
+            class="title-link"
+            flat
+            :to="{
+              name: 'song',
+              params: {
+                songId: props.item.SongId
+              }
+            }">
+            {{props.item.title}}
+          </v-btn>
         </td>
         <td class="text-xs-right">
           {{props.item.artist}}
@@ -57,5 +67,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .title-link {
+    padding: 0;
+    margin-right: 0;
+  }
 </style>

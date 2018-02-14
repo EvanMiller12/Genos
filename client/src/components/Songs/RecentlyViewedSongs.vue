@@ -13,7 +13,7 @@
             :to="{
               name: 'song',
               params: {
-                songId: props.item.id
+                songId: props.item.SongId
               }
             }"
           >{{props.item.title}}</v-btn>
