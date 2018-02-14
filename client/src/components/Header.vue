@@ -20,6 +20,30 @@
         Browse
       </v-btn>
     </v-toolbar-items>
+    <v-toolbar-items>
+      <v-menu offset-y>
+        <v-btn
+          v-if="$store.state.isUserLoggedIn"
+          @click="showBookmarks()"
+          flat dark slot="activator">
+          Bookmarks
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="bookmark in bookmarks" :key="bookmark.id">
+            <v-btn flat :to="{
+              name: 'song',
+              params: {
+                songId: bookmark.SongId
+              }
+            }">
+            <v-list-tile-title>
+              {{ bookmark.title }}
+            </v-list-tile-title>
+            </v-btn>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+    </v-toolbar-items>
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
@@ -54,8 +78,25 @@
 
 <!-- controller -->
 <script>
+import {mapState} from 'vuex'
+import BookmarksService from '@/services/BookmarksService'
+
 export default {
+  data () {
+    return {
+      bookmarks: null
+    }
+  },
+  async mounted () {
+    // if user is logged in, make request to backend for all users bookmarks
+    if (this.isUserLoggedIn) {
+      this.bookmarks = (await BookmarksService.getBookmarks()).data
+    }
+  },
   methods: {
+    async showBookmarks () {
+      this.bookmarks = (await BookmarksService.getBookmarks()).data
+    },
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
@@ -63,6 +104,12 @@ export default {
         name: 'songs'
       })
     }
+  },
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user'
+    ])
   }
 }
 </script>
