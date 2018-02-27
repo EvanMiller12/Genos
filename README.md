@@ -1,6 +1,6 @@
 # Genos
 A Vue.js / Express.js web application for keeping track of guitar tabs
-- built from codyseibert's instructional video to with added features
+- built from codyseibert's instructional video, with added features
 
 ## Frontend
 * Vue
